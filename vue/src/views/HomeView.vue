@@ -1,26 +1,30 @@
 <template>
   <div class="container">
-    <AnimalCard
-      v-for="(monster, index = 1) in animal"
-      :key="monster.name"
-      :id="index + 1"
-      :animal="monster"
-    />
+    <Card v-for="(monster, index) in newyorkian" 
+    :key="monster.name" 
+    :id="index + 1" 
+    :newyorkian="monster"/>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import AnimalCard from '../components/AnimalCard.vue'
-const animal = ref('')
-async function getInfo() {
-  let res = await fetch('https://data.cityofnewyork.us/resource/fuhs-xmg2.json')
+import{ ref, onMounted } from 'vue'
+import Card from '../components/Card.vue';
+const newyorkian = ref('')
+async function getNewYork() {
+  let res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0')
   let data = await res.json()
-  animal.value = data.results
+  newyorkian.value = data.results
 }
-onMounted(() => {
-  getInfo()
+onMounted(()=>{
+  getNewYork()
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+  .container{
+     display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  }
+</style>
