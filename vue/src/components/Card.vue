@@ -7,11 +7,11 @@
 
 <script setup>
 import { computed } from 'vue'
-const props = defineProps(({
+const props = defineProps({
   newyorkian: Object,
-  id: Number,
-}))
-const pkmnPath = computed(()=>{
+  id: Number
+})
+const pkmnPath = computed(() => {
   return `/PokemonData/${props.newyorkian.name}`
 })
 </script>
