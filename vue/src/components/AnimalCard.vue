@@ -6,10 +6,10 @@
 </template>
 
 <script setup>
-const props = {
+const props = defineProps({
   animal: Object,
   id: Number
-}
+})
 </script>
 
 <style lang="scss" scoped></style>
