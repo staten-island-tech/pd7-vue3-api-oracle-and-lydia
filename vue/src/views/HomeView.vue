@@ -15,13 +15,21 @@ const animal = ref('')
 async function getInfo(){
   let res = await fetch('https://data.cityofnewyork.us/resource/fuhs-xmg2.json')
   let data = await res.json()
-  animal.value = data
+  animal.value = data.splice(0,9)
 }
+ 
 onMounted(() => {
   getInfo()
 })
+
+
 </script>
 
 <style scoped>
+.container{
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 
+}
 </style>
