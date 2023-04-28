@@ -3,6 +3,7 @@
 <h2>{{ animal.species_description }}</h2>
 <h3>{{ animal.of_animals }} animal(s)</h3>
 <h4>{{ animal.borough }}</h4>
+<p>{{ animal.animal_condition }}</p>
     </div>
 </template>
 
