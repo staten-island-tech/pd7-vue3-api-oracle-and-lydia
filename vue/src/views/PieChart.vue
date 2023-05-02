@@ -1,7 +1,7 @@
 <template>
     <div class="yes">
         <Pie v-if="loaded" :data="chartData"></Pie>
-        <button @click="toggling()">clicky</button>
+        <button @click="toggling()">click me</button>
     </div>
 </template>
 <script setup>
