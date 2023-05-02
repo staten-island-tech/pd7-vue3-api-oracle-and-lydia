@@ -7,7 +7,9 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="nav">
       <router-link to="/Home">Home</router-link>|
       <router-link to="/BarChart">Bar Chart</router-link>|
-      <router-link to="/PieChart">Pie Chart</router-link>
+      <router-link to="/PieChart">Pie Chart</router-link>|
+      <router-link to="/DoughnutChart">Doughnut Chart</router-link>
+
     </div>
     <RouterView />
   </div>
