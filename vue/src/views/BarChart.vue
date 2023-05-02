@@ -1,7 +1,6 @@
 <template>
     <div class="hi">
-        <router-link to="/Home">Home</router-link>|
-    <router-link to="/PieChart">Pie Chart</router-link>
+        
     <canvas id="barc"></canvas>
 
         <h3>hiih</h3>

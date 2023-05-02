@@ -1,18 +1,29 @@
 <template>
     <div class="yes">
-        <router-link to="/Home">Home</router-link>|
-        <router-link to="/BarChart">Bar Chart</router-link>|
-    <canvas id="piec"></canvas>
-
-        <h3>hiih</h3>
+        <Pie v-if="loaded" :data="chartData"></Pie>
+        <button @click="toggling()">clicky</button>
     </div>
 </template>
 <script setup>
-import{ ref, onMounted, onBeforeMount } from 'vue'
-import Chart from 'chart.js/auto' 
-const animal = ref('')
+import{ ref, onMounted, reactive } from 'vue'
+import { Pie } from 'vue-chartjs'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js' 
 
-function sortData2() {
+ChartJS.register(ArcElement, Tooltip, Legend)
+
+const animal = ref('')
+const loaded = ref(false)
+const toggle = ref(false)
+const chartData = reactive({
+    labels: null,
+    datasets: [
+        {
+            data: null
+        }
+    ]
+})
+
+function sortStatusData() {
   const data = []
   animal.value.forEach((ani) => {
     const index = data.findIndex(e => e.animal_condition === ani.animal_condition)
@@ -27,43 +38,61 @@ function sortData2() {
     }
   })
   console.log(data)
-
   
-  const ctx = document.getElementById("piec")
-  const myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: data.map(x => x.animal_condition),
-      datasets: [{
-        label: '# of Animals',
-        data: data.map(x => x.count),
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+  chartData.labels = data.map(x => x.animal_condition )
+  chartData.datasets[0].data = data.map(x => x.count)
+  console.log(chartData)
+  loaded.value = true
+}
+
+function sortClassData() {
+  const data = []
+  animal.value.forEach((ani) => {
+    const index = data.findIndex(e => e.animal_class === ani.animal_class)
+    if (data[index]) {
+      data[index].count++
+    } else {
+      const newObject = {
+        animal_class: ani.animal_class,
+        count: 1
       }
+      data.push(newObject)
     }
   })
-  myChart;
+  console.log(data)
+  chartData.labels = data.map(x => x.animal_class )
+  chartData.datasets[0].data = data.map(x => x.count)
+  console.log(chartData)
+  loaded.value = true
 }
+
+async function toggling() {
+    loaded.value = false
+    toggle.value = !toggle.value
+    console.log(toggle.value)
+    if(toggle) {
+        await sortClassData()
+    } else {
+        await sortStatusData()
+    }
+}
+
 async function getInfo(){
   let res = await fetch('https://data.cityofnewyork.us/resource/fuhs-xmg2.json')
   let data = await res.json()
   animal.value = data
   console.log(animal)
-  // animal.value.forEach(x => console.log(x))
-  sortData2()
+  sortStatusData()
 }
 
 
 onMounted(() => {
-  getInfo()
-  
-  console.log(animal)
+    try {
+        getInfo()
+        console.log(animal)
+    } catch (e) {
+        console.log(e)
+    }
 })
 </script>
 

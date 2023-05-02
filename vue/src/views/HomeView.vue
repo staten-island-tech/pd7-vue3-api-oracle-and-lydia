@@ -2,10 +2,7 @@
   <div class="container">
 
     <h1>Urban Park Ranger Animal Condition </h1>
-    <div id="nav">
-    <router-link to="/BarChart">Bar Chart</router-link>|
-    <router-link to="/PieChart">Pie Chart</router-link>
-  </div>
+  
   <div class="animal-container">
 <AnimalCard 
 v-for="(animal, index) in animal" 
