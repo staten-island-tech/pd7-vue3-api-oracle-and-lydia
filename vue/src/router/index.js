@@ -23,8 +23,7 @@ const router = createRouter({
       path: '/DoughnutChart',
       name: 'DoughnutChart',
       component: () => import('../views/DoughnutChart.vue')
-    }
-    
+    },
   ]
 })
 
